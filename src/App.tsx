@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useState } from 'react';
+import CreatePerson from './components/CreatePerson';
+import ListPerson from './components/ListPerson';
+import { IPerson } from './Interfaces';
 
-function App() {
+const App: FC = () => {
+  const [persons, setPersons] = useState<Array<IPerson>>([]);
+
+  const updatePersons = (person: IPerson): IPerson => {
+    setPersons([...persons,person]);
+    return person;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CreatePerson updateFriends={updatePersons} />
+
+      <ListPerson persons={persons} />
     </div>
   );
 }
